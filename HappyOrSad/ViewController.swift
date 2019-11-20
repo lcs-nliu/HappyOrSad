@@ -21,9 +21,15 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 // Mark: Methods
-// Created an action for when the button is pressed
+// Action to analyze text input
     @IBAction func analyzeButtonPressed(_ sender: Any) {
-    
+        
+        // Guard against no input
+        guard let phraseInput = messageTextField.text, phraseInput.count > 0 else {
+            resultsLabel.text = "Please enter a phrase to analyze."
+            return
+            
+        }
     }
 }
 
