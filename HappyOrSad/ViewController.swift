@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
 // Mark: Properties
+
 // Connected text field to controller using an outlet
     @IBOutlet weak var messageTextField: UITextField!
 // Connected label to controller using an outlet
@@ -24,11 +25,26 @@ class ViewController: UIViewController {
 // Action to analyze text input
     @IBAction func analyzeButtonPressed(_ sender: Any) {
         
-        // Guard against no input
-        guard let phraseInput = messageTextField.text, phraseInput.count > 0 else {
-            resultsLabel.text = "Please enter a phrase to analyze."
+        // 1. INPUT
+        // Clear out the output label from the last time the analyze button was pressed
+        resultsLabel.text = ""
+        
+        // Guard against no input or too much input
+        let phraseInput = messageTextField.text
+        guard let phraseInput = messageTextField.text, phraseInput.count > 0 && phraseInput.count <= 255 else {
+            resultsLabel.text = "Please enter a string with at least 1 and no more than 255 characters."
             return
+         // Define variables and arrays that I will use later on
+        var emojiCount = 0
+        let happyEmoji = ["😃","😊","😄","🙂"]
+        let sadEmoji = ["☹","🙁","😕","😔"]
             
+        // Check every character for an emoji
+            for singleCharacter in phraseInput {
+            if
+            }
+    
+    
         }
     }
 }
