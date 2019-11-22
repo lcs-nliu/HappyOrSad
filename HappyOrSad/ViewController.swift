@@ -14,6 +14,7 @@ class ViewController: UIViewController {
 // Declare variables needed later
     var happyCount = 0
     var sadCount = 0
+    var numberOfEmojis = 0
 // Connected text field to controller using an outlet
     @IBOutlet weak var messageTextField: UITextField!
 // Connected label to controller using an outlet
@@ -32,6 +33,7 @@ class ViewController: UIViewController {
         resultsLabel.text = ""
         happyCount = 0
         sadCount = 0
+        numberOfEmojis = 0
         // Guard against no input or too much input
         guard let phraseInput = messageTextField.text, phraseInput.count > 0 && phraseInput.count <= 255 else {
             resultsLabel.text = "Please enter a string with at least 1 and no more than 255 characters."
@@ -43,14 +45,24 @@ class ViewController: UIViewController {
             switch singleCharacter {
             case "☹","🙁","😕","😔":
                 happyCount+=1
+                numberOfEmojis+=1
             case "😃","😊","😄","🙂":
                 sadCount+=1
+                numberOfEmojis+=1
             default:
                 resultsLabel.text = "none"
             }
             
-            if happyCount + sadCount >= 1 {
+            let emojiCount = happyCount + sadCount
+            
+            if emojiCount >= 1 {
                 resultsLabel.text = "happy."
+            } else if emojiCount <= 1 {
+                resultsLabel.text = "sad."
+            } else if numberOfEmojis == 0 {
+                resultsLabel.text = "none."
+            } else {
+                resultsLabel.text = "unsure."
             }
             
         }
