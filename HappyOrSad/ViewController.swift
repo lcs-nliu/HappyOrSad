@@ -43,11 +43,11 @@ class ViewController: UIViewController {
         // Check every character for an emoji
         for singleCharacter in phraseInput {
             switch singleCharacter {
-            case "☹","🙁","😕","😔":
+            case "😃","😊","😄","🙂":
                 happyCount+=1
                 numberOfEmojis+=1
-            case "😃","😊","😄","🙂":
-                sadCount+=1
+            case "☹","🙁","😕","😔":
+                sadCount-=1
                 numberOfEmojis+=1
             default:
                 resultsLabel.text = "none"
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
             
             if emojiCount >= 1 {
                 resultsLabel.text = "happy."
-            } else if emojiCount <= 1 {
+            } else if emojiCount <= -1 {
                 resultsLabel.text = "sad."
             } else if numberOfEmojis == 0 {
                 resultsLabel.text = "none."
