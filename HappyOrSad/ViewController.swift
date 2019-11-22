@@ -11,7 +11,9 @@ import UIKit
 class ViewController: UIViewController {
     
 // Mark: Properties
-
+// Declare variables needed later
+    var happyCount = 0
+    var sadCount = 0
 // Connected text field to controller using an outlet
     @IBOutlet weak var messageTextField: UITextField!
 // Connected label to controller using an outlet
@@ -28,24 +30,33 @@ class ViewController: UIViewController {
         // 1. INPUT
         // Clear out the output label from the last time the analyze button was pressed
         resultsLabel.text = ""
-        
+        happyCount = 0
+        sadCount = 0
         // Guard against no input or too much input
-        let phraseInput = messageTextField.text
         guard let phraseInput = messageTextField.text, phraseInput.count > 0 && phraseInput.count <= 255 else {
             resultsLabel.text = "Please enter a string with at least 1 and no more than 255 characters."
             return
-         // Define variables and arrays that I will use later on
-        var emojiCount = 0
-        let happyEmoji = ["😃","😊","😄","🙂"]
-        let sadEmoji = ["☹","🙁","😕","😔"]
-            
-        // Check every character for an emoji
-            for singleCharacter in phraseInput {
-            if
-            }
-    
-    
         }
+    
+        // Check every character for an emoji
+        for singleCharacter in phraseInput {
+            switch singleCharacter {
+            case "☹","🙁","😕","😔":
+                happyCount+=1
+            case "😃","😊","😄","🙂":
+                sadCount+=1
+            default:
+                resultsLabel.text = "none"
+            }
+            
+            if happyCount + sadCount >= 1 {
+                resultsLabel.text = "happy."
+            }
+            
+        }
+    
+    
+        
     }
 }
 
