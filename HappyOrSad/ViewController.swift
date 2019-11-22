@@ -12,8 +12,7 @@ class ViewController: UIViewController {
     
 // Mark: Properties
 // Declare variables needed later
-    var happyCount = 0
-    var sadCount = 0
+    var emojiCount = 0
     var numberOfEmojis = 0
 // Connected text field to controller using an outlet
     @IBOutlet weak var messageTextField: UITextField!
@@ -31,38 +30,45 @@ class ViewController: UIViewController {
         // 1. INPUT
         // Clear out the output label from the last time the analyze button was pressed
         resultsLabel.text = ""
-        happyCount = 0
-        sadCount = 0
+        emojiCount = 0
         numberOfEmojis = 0
         // Guard against no input or too much input
         guard let phraseInput = messageTextField.text, phraseInput.count > 0 && phraseInput.count <= 255 else {
             resultsLabel.text = "Please enter a string with at least 1 and no more than 255 characters."
             return
         }
-    
-        // Check every character for an emoji
+    // Created happy emojis and sad emojis constantss
+    let happyArray = "😃😊😄🙂"
+    let sadArray = "☹🙁😕😔"
+    // Loop to check every single character for an emoji
         for singleCharacter in phraseInput {
-            switch singleCharacter {
-            case "😃","😊","😄","🙂":
-                happyCount+=1
+           // if/else statement to check if any of the characters are emojis
+            if happyArray.contains(singleCharacter) {
+                // If emoji count is over 1 - user is happy
+                emojiCount+=1
+                // User has used an emoji
                 numberOfEmojis+=1
-            case "☹","🙁","😕","😔":
-                sadCount-=1
+            } else if sadArray.contains(singleCharacter){
+                // If emoji count is under 1 - user is sad
+                emojiCount-=1
+                // User has used an emoji
                 numberOfEmojis+=1
-            default:
-                resultsLabel.text = "none"
+            } else {
+                // Set the label text to 'none'
+                resultsLabel.text = "none."
             }
             
-            let emojiCount = happyCount + sadCount
-            
+            // Second if/else statement to see if emoji count is positive or negative indicating if user is happy or sad
             if emojiCount >= 1 {
                 resultsLabel.text = "happy."
             } else if emojiCount <= -1 {
                 resultsLabel.text = "sad."
-            } else if numberOfEmojis == 0 {
-                resultsLabel.text = "none."
-            } else {
+            // if emoji count is zero there is the same number of happy or sad emojis
+            } else if emojiCount == 0, numberOfEmojis != 0 {
                 resultsLabel.text = "unsure."
+            // set default to none because it means there are no emojis
+            } else {
+                resultsLabel.text = "none."
             }
             
         }
